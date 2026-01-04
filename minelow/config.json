@@ -1,0 +1,36 @@
+{
+    "serverTitle": "Minelow Network",
+    "serverName": "Minelow Network",
+    "logoImage": "logo.png",
+    "welcomeTitle": "Bienvenido a Minelow Network!",
+    "welcomeMessage": "Un Servidor En El Cual Podrás Disfrutar Al Máximo De Nuestra Modalidad Pvzbox y Sus Maravillosas Batallas Épicas y Clanes Que Dominan.",
+    "serverIP": "minelow.us",
+    "discordLink": "https://discord.gg/Hpgh5V3U",
+    "communityDescription": "Conéctate y Siente Lo Que Es El Verdadero Instakill !",
+    "JugadoresOnline": 1000,
+    "features": [
+        {
+            "title": "Pvzbox",
+            "description": "Modalida Principal Instakill Con Actualizaciones Y Keyalls Semanales Para Que La Gente Disfrute "
+        },
+        {
+            "title": "Espadas Custom",
+            "description": "Espada Santa, Espada Deportista, Espada Zombie y Espada Girasol"
+        },
+        {
+            "title": "Tienda De Minelow",
+            "description": "Esta En Mantenimiento Pero Dentro De Poco Ya Podreís Comprar Con Total Normalidad y Seguridad"
+        },
+        {
+            "title": "EQUIPO DE ADMINISTRACIÓN",
+            "description": "TioVinzito,Legendario,SoyJasiel,zTheBestNight,Huevito,lamakinita_,nOis,zzcatgaming,NewFaz,zGiveadoh_,redshoter"
+        }
+    ],
+    "rules": [
+        "No Grifear Ni Robar Datos Privados",
+        "Ser Pacientes Para Todo",
+        "No Usar Cheats Ni Ningún Tipo De Hack Client o Ghost Client",
+        "Ser Respetuoso En El Chat"
+    ],
+    "footerText": "© 2026 Minelow Network | Minecraft es Propiedad de Mojang Studios"
+}

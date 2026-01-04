@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="dynamic-title">Loading...</title>
+    <script>
+        // Set the title dynamically from config.json
+        fetch('config.json')
+            .then(response => response.json())
+            .then(config => {
+                document.getElementById('dynamic-title').textContent = config.serverTitle || 'Minecraft Server';
+            })
+            .catch(() => {
+                document.getElementById('dynamic-title').textContent = 'Minecraft Server';
+            });
+    </script>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            font-family: 'Minecraft', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://assets.badlion.net/blog/minecraft-backgrounds/jungle-lake.webp');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('fonts/Minecraft.ttf') format('truetype');
+            font-display: swap;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 4px solid #555;
+            border-radius: 8px;
+            margin-top: 50px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo img {
+            max-width: 100%;
+            height: auto;
+            image-rendering: pixelated;
+        }
+
+        .server-info {
+            background-color: #2d2d2d;
+            border: 3px solid #555;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .ip-box {
+            background-color: #3a3a3a;
+            border: 2px solid #555;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+
+        .ip-address {
+            font-family: monospace;
+            font-size: 18px;
+            color: #ffff55;
+        }
+
+        .copy-btn {
+            background-color: #555;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-family: 'Minecraft';
+            transition: background-color 0.2s;
+        }
+
+        .copy-btn:hover {
+            background-color: #666;
+        }
+
+        .copy-btn:active {
+            background-color: #444;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            color: #55ff55;
+            border-bottom: 2px solid #555;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title:before {
+            content: "";
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background-color: #55ff55;
+            margin-right: 10px;
+            image-rendering: pixelated;
+        }
+
+        .discord-link {
+            display: inline-block;
+            background-color: #5865F2;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-family: 'Minecraft';
+            transition: background-color 0.2s;
+        }
+
+        .discord-link:hover {
+            background-color: #4752C4;
+        }
+
+        .block-icon {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            image-rendering: pixelated;
+            vertical-align: middle;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .feature {
+            background-color: #2d2d2d;
+            border: 2px solid #555;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .feature-title {
+            color: #ffaa00;
+            margin-bottom: 5px;
+        }
+
+        .online-players {
+            margin-top: 20px;
+        }
+
+        .player-count {
+            color: #55ffff;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #aaa;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="loading">Loading server information...</div>
+        
+        <!-- Content will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <script>
+        // Load configuration and render page
+        async function loadConfig() {
+            try {
+                const response = await fetch('config.json');
+                if (!response.ok) throw new Error('Failed to load config');
+                const config = await response.json();
+                renderPage(config);
+            } catch (error) {
+                console.error('Error loading config:', error);
+                document.querySelector('.loading').textContent = 'Failed to load server information. Please try again later.';
+            }
+        }
+
+        // Render the page based on config
+        function renderPage(config) {
+            const container = document.querySelector('.container');
+            container.innerHTML = `
+                <div class="logo">
+                    <img src="${config.logoImage}" alt="${config.serverName} Logo">
+                </div>
+
+                <div class="server-info">
+                    <h2>${config.welcomeTitle}</h2>
+                    <p>${config.welcomeMessage}</p>
+                    
+                    <div class="ip-box">
+                        <span class="ip-address">${config.serverIP}</span>
+                        <button class="copy-btn" onclick="copyToClipboard('${config.serverIP}')">Copy IP</button>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Server Features</h3>
+                    <div class="features" id="features-container">
+                        ${config.features.map(feature => `
+                            <div class="feature">
+                                <div class="feature-title">${feature.title}</div>
+                                <p>${feature.description}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Join Our Community</h3>
+                    <p>${config.communityDescription}</p>
+                    <a href="${config.discordLink}" class="discord-link">Join Discord</a>
+                    
+                    <div class="online-players">
+                        <p><span class="player-count">${config.onlinePlayers}</span> players online right now!</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Server Rules</h3>
+                    <ul id="rules-list">
+                        ${config.rules.map(rule => `<li>${rule}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="footer">
+                    <p>${config.footerText}</p>
+                </div>
+            `;
+        }
+
+        // Copy IP to clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Server IP copied to clipboard!');
+            }, function(err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
+
+        // Load the config when page loads
+        document.addEventListener('DOMContentLoaded', loadConfig);
+    </script>
+</body>
+</html>
